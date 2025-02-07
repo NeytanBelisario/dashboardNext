@@ -1,5 +1,6 @@
 'use client'
-import { useEffect, useState } from "react";
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { createContext } from "react";
 import React from "react";
 
@@ -7,11 +8,30 @@ export const AppContext = createContext({
     posts: [{}],
     addPost: (post:any) => {},
     removePost: (i:number) => {},
-    modifyPost: (i:number, post:any[]) => {}
+    modifyPost: (i:number, post:any[]) => {},
+    postsNoticias: [{}]
 })
 
 export const AppProvider = ({children}:any) => {
     const [posts, setPosts] = useState<any[]>([])
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+    const API_URL = process.env.NEXT_PUBLIC_API_URL
+    const [postsNoticias, setPostsNoticias] = useState<any>([])
+
+    useEffect(() => {
+        pegarNoticias()
+    }, [])
+    
+    const pegarNoticias = async () => {
+        await axios.get(`${API_URL}/v2/everything?q=esportes&language=pt&apiKey=${API_KEY}`)
+            .then((response) => {
+                console.log(response)
+                setPostsNoticias(response.data.articles)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     useEffect(() => {
         const postsSalvos = localStorage.getItem('posts')
@@ -47,7 +67,7 @@ export const AppProvider = ({children}:any) => {
     }
 
     return(
-        <AppContext.Provider value={{posts, addPost, removePost, modifyPost}}>
+        <AppContext.Provider value={{posts, addPost, removePost, modifyPost, postsNoticias}}>
             {children}
         </AppContext.Provider>
     )

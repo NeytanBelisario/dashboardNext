@@ -1,5 +1,5 @@
 'use client'
-import { usePost } from "@/app/usePost/page";
+import { usePost } from "@/Hooks/usePost/page";
 import { AnimatePresence, motion } from "motion/react"
 import React, { useState } from "react";
 

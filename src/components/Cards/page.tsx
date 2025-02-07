@@ -1,14 +1,9 @@
-import { usePost } from "@/app/usePost/page"
+import { usePost } from "@/Hooks/usePost/page"
 import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 
 export const Cards = () => {
     const { posts, removePost } = usePost()
-
-    useEffect(() => {
-        console.log(posts)
-    }, [posts])
-
     const [isOpen, setIsOpen] = useState(false)
     const [indexIsOpen, setIndexIsOpen] = useState(0)
 
@@ -17,7 +12,7 @@ export const Cards = () => {
             {posts.map((item: any, index: any) => {
                 return (
                     <AnimatePresence key={index} initial={false}>
-                        <div className={`${isOpen && indexIsOpen === index ? 'fixed w-[100vw] h-[100%] top-0 left-0 flex items-center justify-center bg-[#00000098] z-50' : 'z-10 static'}  `} 
+                        <div className={`${isOpen && indexIsOpen === index ? 'fixed w-[100vw] h-[100%] top-0 left-0 flex items-center justify-center bg-[#00000098] z-40' : 'z-10 static'}  `} 
                         onClick={() => {
                             setIsOpen(!isOpen);
                             setIndexIsOpen(index)

@@ -1,7 +1,7 @@
 'use client'
-import { Cards } from "./components/Cards/page";
-import { Header } from "./components/Header/page";
-import { SideBar } from "./components/SideBar/page";
+import { Cards } from "../components/Cards/page";
+import { Header } from "../components/Header/page";
+import { SideBar } from "../components/SideBar/page";
 import React from "react";
 
 export default function Home() {
