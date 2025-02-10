@@ -9,7 +9,9 @@ export const AppContext = createContext({
     addPost: (post:any) => {},
     removePost: (i:number) => {},
     modifyPost: (i:number, post:any[]) => {},
-    postsNoticias: [{}]
+    postsNoticias: [{}], 
+    mudarTema: (tema: string) => {},
+    tema: ''
 })
 
 export const AppProvider = ({children}:any) => {
@@ -17,13 +19,14 @@ export const AppProvider = ({children}:any) => {
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY
     const API_URL = process.env.NEXT_PUBLIC_API_URL
     const [postsNoticias, setPostsNoticias] = useState<any>([])
+    const [tema, setTema] = useState<string>('geral')
 
     useEffect(() => {
         pegarNoticias()
-    }, [])
+    }, [tema])
     
     const pegarNoticias = async () => {
-        await axios.get(`${API_URL}/v2/everything?q=esportes&language=pt&apiKey=${API_KEY}`)
+        await axios.get(`${API_URL}/v2/everything?q=${tema}&language=pt&apiKey=${API_KEY}`)
             .then((response) => {
                 console.log(response)
                 setPostsNoticias(response.data.articles)
@@ -66,8 +69,14 @@ export const AppProvider = ({children}:any) => {
         }))
     }
 
+    const mudarTema = (tema:string) => {
+        console.log('oi')
+        setTema(tema)
+        setPostsNoticias([])
+    }
+
     return(
-        <AppContext.Provider value={{posts, addPost, removePost, modifyPost, postsNoticias}}>
+        <AppContext.Provider value={{posts, addPost, removePost, modifyPost, postsNoticias, mudarTema, tema}}>
             {children}
         </AppContext.Provider>
     )

@@ -18,6 +18,7 @@ export const Cards = () => {
                             setIndexIsOpen(index)
                         }}>
                             <motion.div
+                                whileHover={{scale: isOpen ? 1 : 1.05 }}
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 exit={{ scale: 0, opacity: 0 }}
@@ -26,7 +27,7 @@ export const Cards = () => {
                                     duration: 0.4,
                                     scale: { type: 'spring', visualDuration: 0.4, bounce: 0.5 }
                                 }}
-                                className={`text-white bg-[#1D1D1D] rounded-[4px] ${(isOpen && indexIsOpen == index) ? 'absolute w-[40%] h-[auto] outline outline-1 outline-[#c0bebe] grid items-center px-7 py-6' : 'p-6 static'}`}
+                                className={`text-white bg-[#1D1D1D] rounded-[4px] ${(isOpen && indexIsOpen == index) ? 'absolute w-[40%] h-[auto] outline outline-1 outline-[#666666] grid items-center px-7 py-6' : 'p-6 static'}`}
                             >
                                 <motion.p layout="position" className={`mb-4 text-[26px] font-extrabold ${item.status === 'Concluído' ? 'text-[#35842f]' : item.status === 'Pendente' ? 'text-[#C68E3C]' : 'text-[#5940d7]'}`}>{item.titulo}</motion.p>
                                 {isOpen && indexIsOpen === index ? (
